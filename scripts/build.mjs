@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+const assets={};for(const [name,type] of [['codesinfo.png','image/png'],['recnplay.png','image/png'],['gni.svg','image/svg+xml']])assets['/assets/'+name]={type,data:fs.readFileSync('src/assets/'+name).toString('base64')};
+fs.rmSync('dist',{recursive:true,force:true});fs.mkdirSync('dist/server',{recursive:true});fs.writeFileSync('dist/server/index.js','const PAGE='+JSON.stringify(fs.readFileSync('src/app.html','utf8'))+';\nconst ASSETS='+JSON.stringify(assets)+';\n'+fs.readFileSync('src/server.mjs','utf8'));console.log('Built Worker with embedded page and original brand assets');
